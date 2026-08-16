@@ -46,7 +46,15 @@ const $refreshBtn = document.getElementById('refreshBtn');
 // ============================================
 
 async function fetchData(force = false) {
-  const url = force ? '/api/combined?force=true' : '/api/combined';
+  // If running locally on dev server, we can query the backend API for dynamic refresh.
+  // On GitHub Pages, we fetch the static data.json compiled by GitHub Actions.
+  const isLocalDev = window.location.hostname === 'localhost' && window.location.port === '5173';
+  
+  let url = './data.json';
+  if (isLocalDev) {
+    url = force ? '/api/combined?force=true' : '/api/combined';
+  }
+
   const res = await fetch(url);
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
@@ -227,7 +235,14 @@ async function init(force = false) {
       setupEventToggle();
       
       $refreshBtn.addEventListener('click', () => {
-        init(true);
+        const isLocalDev = window.location.hostname === 'localhost' && window.location.port === '5173';
+        if (isLocalDev) {
+          init(true);
+        } else {
+          // On GitHub Pages, reload the page to get the latest built data.json.
+          // Since GitHub Actions deploys the updated data, a simple page reload is sufficient.
+          window.location.reload();
+        }
       });
       $refreshBtn.dataset.setup = 'true';
     }

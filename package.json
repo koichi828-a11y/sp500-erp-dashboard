@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "concurrently -n api,vite -c blue,green \"node server/index.js\" \"vite\"",
     "server": "node server/index.js",
-    "build": "vite build",
+    "build:data": "node scripts/build-data.js",
+    "build": "npm run build:data && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
