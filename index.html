@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S&P 500 Equity Risk Premium Dashboard</title>
+  <meta name="description" content="S&P 500の株式リスクプレミアム（ERP）を歴史的データとリアルタイムデータで検証するダッシュボード" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+
+  <script type="module" crossorigin src="/sp500-erp-dashboard/assets/index-CjcmChdy.js"></script>
+  <link rel="stylesheet" crossorigin href="/sp500-erp-dashboard/assets/index-DOeFgCld.css">
+</head>
+<body>
+  <!-- =============================== -->
+  <!-- Loading Overlay                  -->
+  <!-- =============================== -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">データを取得中...</p>
+      <p class="loading-sub">Shiller Dataset + Yahoo Finance</p>
+    </div>
+  </div>
+
+  <!-- =============================== -->
+  <!-- Error Banner (hidden by default) -->
+  <!-- =============================== -->
+  <div id="errorBanner" class="error-banner hidden">
+    <span class="error-icon">⚠️</span>
+    <span id="errorMessage">エラーが発生しました</span>
+    <button id="retryBtn" class="retry-btn">再試行</button>
+  </div>
+
+  <!-- =============================== -->
+  <!-- Dashboard                        -->
+  <!-- =============================== -->
+  <div id="dashboard" class="dashboard hidden">
+
+    <!-- Header -->
+    <header class="dashboard-header">
+      <div class="header-left">
+        <div class="header-logo">
+          <span class="logo-icon">📊</span>
+          <div>
+            <h1>S&P 500 Risk Premium</h1>
+            <p class="header-subtitle">Equity Risk Premium Historical Analysis</p>
+          </div>
+        </div>
+      </div>
+      <div class="header-right">
+        <button id="refreshBtn" class="refresh-btn" title="最新データを強制再取得">
+          <span class="refresh-icon">🔄</span> 更新
+        </button>
+        <div class="live-indicator">
+          <span class="live-dot"></span>
+          <span>Live</span>
+        </div>
+        <span class="last-updated" id="lastUpdated">--</span>
+      </div>
+    </header>
+
+    <!-- Summary Cards -->
+    <section class="stats-row">
+      <div class="stat-card" id="cardPrice">
+        <div class="stat-label">S&P 500</div>
+        <div class="stat-value" id="statPrice">--</div>
+        <div class="stat-detail" id="statPriceDetail">--</div>
+      </div>
+      <div class="stat-card" id="cardYields">
+        <div class="stat-label">益回り vs 10年債</div>
+        <div class="stat-value dual">
+          <span class="yield-stock" id="statEY">--</span>
+          <span class="yield-sep">vs</span>
+          <span class="yield-bond" id="statGS10">--</span>
+        </div>
+        <div class="stat-detail" id="statYieldDetail">--</div>
+      </div>
+      <div class="stat-card" id="cardERP">
+        <div class="stat-label">株式リスクプレミアム</div>
+        <div class="stat-value" id="statERP">--</div>
+        <div class="stat-detail" id="statERPDetail">--</div>
+      </div>
+    </section>
+
+    <!-- Controls -->
+    <section class="controls-row">
+      <div class="period-selector">
+        <span class="control-label">表示期間:</span>
+        <button class="period-btn" data-start="1871">全期間</button>
+        <button class="period-btn" data-start="1950">1950〜</button>
+        <button class="period-btn active" data-start="1980">1980〜</button>
+        <button class="period-btn" data-start="2000">2000〜</button>
+        <button class="period-btn" data-start="2010">2010〜</button>
+        <button class="period-btn" data-start="2020">2020〜</button>
+      </div>
+      <div class="toggle-group">
+        <label class="toggle-label">
+          <input type="checkbox" id="toggleEvents" checked />
+          <span class="toggle-switch"></span>
+          <span>歴史イベント表示</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Charts -->
+    <section class="charts-section">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2>📈 S&P 500 株価推移（対数スケール）</h2>
+        </div>
+        <div id="chartPrice" class="chart-container"></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2>💰 益回り vs 10年国債利回り</h2>
+        </div>
+        <div id="chartYields" class="chart-container"></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <h2>⚡ 株式リスクプレミアム (ERP)</h2>
+          <p class="chart-description">ERP = 益回り − 10年国債利回り｜マイナス = 債券 > 株式（バブル兆候）</p>
+        </div>
+        <div id="chartERP" class="chart-container chart-container-lg"></div>
+      </div>
+    </section>
+
+    <!-- Explanation -->
+    <section class="explanation-section">
+      <div class="explanation-card">
+        <h2>📖 株式リスクプレミアム（ERP）の読み方</h2>
+        <div class="explanation-grid">
+          <div class="explanation-item">
+            <div class="explanation-icon positive">▲</div>
+            <div>
+              <h3>ERP がプラス（高い）</h3>
+              <p>株式の期待リターンが債券を上回っている状態。リスクを取る「報酬」が存在する。歴史的平均は約3〜4%。</p>
+            </div>
+          </div>
+          <div class="explanation-item">
+            <div class="explanation-icon neutral">●</div>
+            <div>
+              <h3>ERP がゼロ付近</h3>
+              <p>株式と債券の期待リターンが拮抗。株式のリスクに対する報酬がほとんどない「警戒水域」。</p>
+            </div>
+          </div>
+          <div class="explanation-item">
+            <div class="explanation-icon negative">▼</div>
+            <div>
+              <h3>ERP がマイナス</h3>
+              <p>安全な国債のほうが株式より高いリターンを提供。過去にはITバブル期（1999-2000年）と現在の金融引き締め局面で発生。バブルの警告サイン。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="explanation-card">
+        <h2>🔍 歴史的イベントとERP</h2>
+        <div class="events-legend">
+          <div class="event-tag" style="--event-color: rgba(139, 92, 246, 0.3)">
+            <span class="event-swatch"></span> ブラックマンデー（1987）
+          </div>
+          <div class="event-tag" style="--event-color: rgba(148, 163, 184, 0.3)">
+            <span class="event-swatch"></span> ITバブル崩壊（1999-2001）
+          </div>
+          <div class="event-tag" style="--event-color: rgba(16, 185, 129, 0.3)">
+            <span class="event-swatch"></span> リーマンショック（2007-2009）
+          </div>
+          <div class="event-tag" style="--event-color: rgba(59, 130, 246, 0.3)">
+            <span class="event-swatch"></span> コロナショック（2020）
+          </div>
+          <div class="event-tag" style="--event-color: rgba(249, 115, 22, 0.3)">
+            <span class="event-swatch"></span> 金融引き締め局面（2022〜）
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+      <p>
+        データソース:
+        <a href="http://www.econ.yale.edu/~shiller/data.htm" target="_blank" rel="noopener">Robert Shiller (Yale)</a> +
+        <a href="https://finance.yahoo.com/" target="_blank" rel="noopener">Yahoo Finance</a>
+      </p>
+      <p class="footer-note">※ 益回り = EPS / 株価。直近のEPSは市場コンセンサス予想に基づく概算値を使用しています。</p>
+    </footer>
+  </div>
+
+</body>
+</html>
