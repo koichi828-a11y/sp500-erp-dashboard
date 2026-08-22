@@ -23527,6 +23527,24 @@
       "source": "yahoo"
     },
     {
+      "date": "2026-07-21",
+      "price": 7509.2001953125,
+      "earnings": 252,
+      "gs10": 4.627999782562256,
+      "earningsYield": 3.355883362349389,
+      "erp": -1.2721164202128667,
+      "source": "yahoo"
+    },
+    {
+      "date": "2026-07-22",
+      "price": 7498.9599609375,
+      "earnings": 252,
+      "gs10": 4.6570000648498535,
+      "earningsYield": 3.360466002121388,
+      "erp": -1.2965340627284654,
+      "source": "yahoo"
+    },
+    {
       "date": "2026-07-23",
       "price": 7408.2998046875,
       "earnings": 252,
@@ -23578,6 +23596,15 @@
       "gs10": 4.663000106811523,
       "earningsYield": 3.3881761256007477,
       "erp": -1.2748239812107758,
+      "source": "yahoo"
+    },
+    {
+      "date": "2026-07-31",
+      "price": 7489.72021484375,
+      "earnings": 252,
+      "gs10": 4.744999885559082,
+      "earningsYield": 3.3646116646729403,
+      "erp": -1.3803882208861418,
       "source": "yahoo"
     },
     {
@@ -23705,34 +23732,43 @@
       "earningsYield": 3.2979285193214998,
       "erp": -1.3980715798606291,
       "source": "yahoo"
+    },
+    {
+      "date": "2026-08-21",
+      "price": 7674.3701171875,
+      "earnings": 252,
+      "gs10": 4.73799991607666,
+      "earningsYield": 3.2836571099903225,
+      "erp": -1.4543428060863377,
+      "source": "yahoo"
     }
   ],
   "latest": {
-    "date": "2026-08-20",
-    "price": 7641.16,
+    "date": "2026-08-21",
+    "price": 7674.37,
     "earnings": 252,
-    "gs10": 4.7,
-    "earningsYield": 3.3,
-    "erp": -1.4,
+    "gs10": 4.74,
+    "earningsYield": 3.28,
+    "erp": -1.45,
     "source": "yahoo"
   },
   "stats": {
-    "totalPoints": 2634,
+    "totalPoints": 2638,
     "dateRange": {
       "from": "1871-01-01",
-      "to": "2026-08-20"
+      "to": "2026-08-21"
     },
     "erp": {
       "mean": 1.84,
-      "median": 1.17,
+      "median": 1.16,
       "p25": -0.43,
-      "p75": 3.53,
-      "current": -1.4
+      "p75": 3.52,
+      "current": -1.45
     },
     "shillerLastDate": "2023-06-01"
   },
   "meta": {
-    "lastUpdated": "2026-08-21T03:31:33.521Z",
+    "lastUpdated": "2026-08-22T03:09:09.748Z",
     "sources": [
       "Robert Shiller (Yale)",
       "Yahoo Finance"
