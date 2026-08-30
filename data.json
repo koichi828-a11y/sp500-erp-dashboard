@@ -23782,9 +23782,9 @@
       "date": "2026-08-28",
       "price": 7711.759765625,
       "earnings": 252,
-      "gs10": 4.720000267028809,
+      "gs10": 4.71999979019165,
       "earningsYield": 3.2677366471305866,
-      "erp": -1.452263619898222,
+      "erp": -1.4522631430610637,
       "source": "yahoo"
     }
   ],
@@ -23813,7 +23813,7 @@
     "shillerLastDate": "2023-06-01"
   },
   "meta": {
-    "lastUpdated": "2026-08-29T00:05:47.193Z",
+    "lastUpdated": "2026-08-30T00:07:22.406Z",
     "sources": [
       "Robert Shiller (Yale)",
       "Yahoo Finance"
