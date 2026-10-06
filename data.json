@@ -24002,34 +24002,43 @@
       "earningsYield": 3.2630989209687247,
       "erp": -2.013901029440211,
       "source": "yahoo"
+    },
+    {
+      "date": "2026-10-05",
+      "price": 7773.9501953125,
+      "earnings": 252,
+      "gs10": 5.310999870300293,
+      "earningsYield": 3.2415952465446685,
+      "erp": -2.0694046237556245,
+      "source": "yahoo"
     }
   ],
   "latest": {
-    "date": "2026-10-02",
-    "price": 7722.72,
+    "date": "2026-10-05",
+    "price": 7773.95,
     "earnings": 252,
-    "gs10": 5.28,
-    "earningsYield": 3.26,
-    "erp": -2.01,
+    "gs10": 5.31,
+    "earningsYield": 3.24,
+    "erp": -2.07,
     "source": "yahoo"
   },
   "stats": {
-    "totalPoints": 2667,
+    "totalPoints": 2668,
     "dateRange": {
       "from": "1871-01-01",
-      "to": "2026-10-02"
+      "to": "2026-10-05"
     },
     "erp": {
       "mean": 1.8,
       "median": 1.12,
-      "p25": -0.45,
+      "p25": -0.46,
       "p75": 3.5,
-      "current": -2.01
+      "current": -2.07
     },
     "shillerLastDate": "2023-06-01"
   },
   "meta": {
-    "lastUpdated": "2026-10-05T04:16:07.440Z",
+    "lastUpdated": "2026-10-06T05:04:21.492Z",
     "sources": [
       "Robert Shiller (Yale)",
       "Yahoo Finance"
