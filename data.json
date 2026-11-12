@@ -24241,38 +24241,47 @@
       "date": "2026-11-10",
       "price": 7520.93017578125,
       "earnings": 252,
-      "gs10": 4.9830002784729,
+      "gs10": 4.982999801635742,
       "earningsYield": 3.350649375944021,
-      "erp": -1.6323509025288794,
+      "erp": -1.6323504256917212,
+      "source": "yahoo"
+    },
+    {
+      "date": "2026-11-11",
+      "price": 7619.3798828125,
+      "earnings": 252,
+      "gs10": 4.998000144958496,
+      "earningsYield": 3.307355767474618,
+      "erp": -1.6906443774838782,
       "source": "yahoo"
     }
   ],
   "latest": {
-    "date": "2026-11-10",
-    "price": 7520.93,
+    "date": "2026-11-11",
+    "price": 7619.38,
     "earnings": 252,
-    "gs10": 4.98,
-    "earningsYield": 3.35,
-    "erp": -1.63,
+    "gs10": 5,
+    "earningsYield": 3.31,
+    "erp": -1.69,
     "source": "yahoo"
   },
   "stats": {
-    "totalPoints": 2694,
+    "totalPoints": 2695,
     "dateRange": {
       "from": "1871-01-01",
-      "to": "2026-11-10"
+      "to": "2026-11-11"
     },
     "erp": {
-      "mean": 1.77,
+      "mean": 1.76,
       "median": 1.08,
       "p25": -0.48,
       "p75": 3.48,
-      "current": -1.63
+      "current": -1.69
     },
     "shillerLastDate": "2023-06-01"
   },
   "meta": {
-    "lastUpdated": "2026-11-11T04:52:40.878Z",
+    "lastUpdated": "2026-11-12T05:54:05.467Z",
     "sources": [
       "Robert Shiller (Yale)",
       "Yahoo Finance"
